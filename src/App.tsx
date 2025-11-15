@@ -3,6 +3,8 @@ import { ImageUpload } from './components/ImageUpload';
 import { AgentChat } from './components/AgentChat';
 import { ProductAnalysis } from './components/ProductAnalysis';
 import { Sparkles } from 'lucide-react';
+import { CameraCapture } from './components/CameraCapture';
+
 
 export default function App() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -60,45 +62,49 @@ export default function App() {
         </div>
       )}
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 pb-12">
-        {!uploadedImage ? (
-          <ImageUpload onImageUpload={handleImageUpload} />
-        ) : (
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* Left Column - Image & Analysis */}
-              <div className="space-y-6">
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-                  <img 
-                    src={uploadedImage} 
-                    alt="Uploaded product" 
-                    className="w-full h-80 object-cover"
-                  />
-                  <div className="p-4 flex justify-end">
-                    <button
-                      onClick={handleReset}
-                      className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      Upload New Image
-                    </button>
-                  </div>
-                </div>
-
-                {showResults && <ProductAnalysis />}
-              </div>
-
-              {/* Right Column - Agent Chat */}
-              <div>
-                <AgentChat 
-                  isAnalyzing={isAnalyzing} 
-                  showResults={showResults} 
+          {/* Main Content */}
+    <div className="container mx-auto px-4 pb-12">
+    {!uploadedImage ? (
+      <div className="space-y-6">
+        <ImageUpload onImageUpload={handleImageUpload} />
+        <CameraCapture onImageUpload={handleImageUpload} />
+      </div>
+      ) : (
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-6">
+            {/* Left Column - Image & Analysis */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <img 
+                  src={uploadedImage} 
+                  alt="Uploaded product" 
+                  className="w-full h-80 object-cover"
                 />
+                <div className="p-4 flex justify-end">
+                  <button
+                    onClick={handleReset}
+                    className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  >
+                    Upload New Image
+                  </button>
+                </div>
               </div>
+
+              {showResults && <ProductAnalysis />}
+            </div>
+
+            {/* Right Column - Agent Chat */}
+            <div>
+              <AgentChat 
+                isAnalyzing={isAnalyzing} 
+                showResults={showResults} 
+              />
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
+
 
       {/* Footer */}
       <footer className="border-t bg-white/80 backdrop-blur-sm mt-12">
