@@ -3,9 +3,10 @@ import { Upload, Camera, Image as ImageIcon } from 'lucide-react';
 
 interface ImageUploadProps {
   onImageUpload: (imageUrl: string) => void;
+  onTakePhoto?: () => void;
 }
 
-export function ImageUpload({ onImageUpload }: ImageUploadProps) {
+export function ImageUpload({ onImageUpload, onTakePhoto }: ImageUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -34,7 +35,7 @@ export function ImageUpload({ onImageUpload }: ImageUploadProps) {
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    
+
     const file = e.dataTransfer.files?.[0];
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
@@ -65,13 +66,14 @@ export function ImageUpload({ onImageUpload }: ImageUploadProps) {
           </div>
 
           <div>
-            <h3 className="text-xl mb-2">Upload Your Product</h3>
+            <h3 className="text-xl mb-2">Upload or Take a Photo</h3>
             <p className="text-gray-600 mb-6">
-              Take a photo or upload an image to get started
+              Drag & drop, upload a file, or use your camera
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* Upload File */}
             <button
               onClick={() => fileInputRef.current?.click()}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl hover:from-purple-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-xl"
@@ -80,8 +82,9 @@ export function ImageUpload({ onImageUpload }: ImageUploadProps) {
               Upload File
             </button>
 
+            {/* Take Photo */}
             <button
-              onClick={() => cameraInputRef.current?.click()}
+              onClick={() => onTakePhoto?.()}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all"
             >
               <Camera className="w-5 h-5" />
@@ -89,11 +92,10 @@ export function ImageUpload({ onImageUpload }: ImageUploadProps) {
             </button>
           </div>
 
-          <p className="text-sm text-gray-500">
-            Supports: JPG, PNG, WebP
-          </p>
+          <p className="text-sm text-gray-500">Supports: JPG, PNG, WebP</p>
         </div>
 
+        {/* Hidden inputs */}
         <input
           ref={fileInputRef}
           type="file"
@@ -106,7 +108,7 @@ export function ImageUpload({ onImageUpload }: ImageUploadProps) {
           ref={cameraInputRef}
           type="file"
           accept="image/*"
-          capture="environment"
+          capture="environment" // mobile devices will open camera
           onChange={handleFileChange}
           className="hidden"
         />

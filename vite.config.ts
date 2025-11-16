@@ -55,6 +55,14 @@
     },
     server: {
       port: 3000,
-      open: true,
+      open: false,
+      hmr: {
+        host: 'localhost',
+        port: 3000,
+      },
+      watch: {
+        usePolling: true,
+        interval: 100,
+      },
     },
   });

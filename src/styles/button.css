@@ -1,0 +1,35 @@
+/* --- Add these styles to your custom CSS file --- */
+
+/* Base Style for the Figma-look Buttons */
+.btn-figma {
+    /* Override Tailwind's default border-radius to force the deep pill shape */
+    border-radius: 25px !important;
+    padding: 12px 24px !important; /* Specific padding from the design */
+    color: white !important; /* Ensure white text */
+
+    /* Remove Tailwind transitions and re-define them cleanly */
+    transition: all 0.3s ease !important;
+    transform: none !important; /* Reset any default transforms */
+}
+
+/* Hover/Active Effects */
+.btn-figma:hover {
+    opacity: 0.9;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* --- Specific Gradient Color Classes --- */
+
+/* 1. Upload Image (Matches the Purple/Blue "Upload File" button) */
+.btn-figma-upload {
+    background: linear-gradient(to right, #A08BE7, #4E7BF6);
+    box-shadow: 0 4px 10px rgba(78, 123, 246, 0.4); 
+}
+
+/* 2. Take Photo (Uses the Green/Emerald gradient from your second image) */
+.btn-figma-photo {
+    /* Colors from the second button in your "AI Agents" image */
+    background: linear-gradient(to right, #6ACD6F, #3CB371); /* Light Green to Medium Sea Green */
+    box-shadow: 0 4px 10px rgba(60, 179, 113, 0.4);
+}

@@ -119,10 +119,20 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+
 @layer base {
-  * {
+  button {
+    @apply rounded-full font-semibold shadow-lg transition-transform;
+    border: none; /* remove global border */
+    outline: none; /* remove global outline */
+  }
+}
+
+@layer base {
+  body, input, textarea {
     @apply border-border outline-ring/50;
   }
+
 
   body {
     @apply bg-background text-foreground;
